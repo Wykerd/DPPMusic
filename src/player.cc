@@ -100,6 +100,8 @@ void MediaPlayer::Complete()
     if (!status.completed_ok()) {
         std::cerr << "Parsing error; status code: " << status.code << '\n';
     }
+
+    vc->insert_marker();
 };
 
 }
