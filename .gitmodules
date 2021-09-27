@@ -1,0 +1,6 @@
+[submodule "deps/ytdl"]
+	path = deps/ytdl
+	url = https://github.com/Wykerd/libytdl
+[submodule "deps/dpp"]
+	path = deps/dpp
+	url = https://github.com/brainboxdotcc/DPP.git
