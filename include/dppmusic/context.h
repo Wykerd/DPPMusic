@@ -12,8 +12,7 @@ namespace dppmusic {
 typedef struct song_req_s {
     char id[YTDL_ID_LEN];
     dpp::snowflake member_id;
-    dpp::snowflake channel_id;
-    dpp::snowflake guild_id;
+    dpp::discord_voice_client *vc;
     char *token;
     dpp::cluster *bot;
 } song_req_t;

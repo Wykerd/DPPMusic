@@ -54,11 +54,8 @@ Status StreamCallback::OnFrame(const FrameMetadata& metadata,
     
     Status status = reader->Read(*bytes_remaining, buf, &read);
     *bytes_remaining -= read;
-
-    // TODO: fix this
-    while (!(vconn && vconn->voiceclient && vconn->voiceclient->is_ready())) {}
     
-    vconn->voiceclient->send_audio_opus(buf, read, 20);
+    vc->send_audio_opus(buf, read, 20);
     
     free(buf);
     return status;
@@ -70,25 +67,9 @@ namespace dppmusic {
 
 bool MediaPlayer::Connect(song_req_t *req)
 {
-    dpp::guild *g = dpp::find_guild(req->guild_id);
-    if (!g->connect_member_voice(req->member_id)) {
-        dpp::message msg;
-        dpp::embed embed;
+    vc = req->vc;
 
-        embed
-            .set_color(0x000000)
-            .set_description("You're not connected to a voice channel!");
-        
-        msg.add_embed(embed);
-
-        req->bot->interaction_response_edit(req->token, msg);
-
-        return false;
-    }
-
-    vconn = req->bot->get_shard(g->shard_id)->get_voice(req->guild_id);
-
-    callback.vconn = vconn;
+    callback.vc = vc;
 
     is_connected = true;
 

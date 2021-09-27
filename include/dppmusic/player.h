@@ -11,7 +11,7 @@ namespace webm {
 
 class StreamCallback : public Callback {
     public:
-        dpp::voiceconn *vconn;
+        dpp::discord_voice_client *vc;
         uint64_t cluster_timecode;
         
         Status OnTrackEntry(const ElementMetadata& metadata,
@@ -40,7 +40,7 @@ class MediaPlayer {
         webm::StreamCallback callback;
         webm::PartialBufferReader reader;
         webm::WebmParser parser;
-        dpp::voiceconn *vconn;
+        dpp::discord_voice_client *vc;
         bool is_connected;
     public:
         MediaPlayer() = default;
